@@ -1,0 +1,61 @@
+APPROACH
+
+Setup
+-----
+This is the REChain frontend they shared. From the repo root:
+
+  npm install
+  cp .env.example .env
+  npm run dev
+
+.env needs VITE_WALLETCONNECT_PROJECT_ID if you want WalletConnect / QR. I used RainbowKit's getDefaultConfig so one project ID covers that. If the ID is empty, MetaMask (browser extension) still works.
+
+VITE_API_BASE_URL can stay as localhost. I didn't actually need a running backend for the listings / wallet flow. See below.
+
+Wallet work (the actual assignment)
+-----------------------------------
+I added Wagmi + RainbowKit, wrapped the app in main.tsx (WagmiProvider -> QueryClientProvider -> RainbowKitProvider), and kept the config in src/config/wagmi.ts.
+
+Target chain is Polygon Amoy. RainbowKit is themed to the same terracotta as the rest of the site (#D4755B) so the modal doesn't look dumped in.
+
+I didn't use RainbowKit's default ConnectButton. It doesn't match this UI at all. Wrote a small ConnectWalletButton and dropped it under the listed price on the property detail header.
+
+When connected:
+- truncated address, same format they asked for (0x1234...5678)
+- network name "Polygon Amoy" if you're on Amoy
+- Disconnect button
+
+Connecting shows a spinner + "Connecting...". Switch / disconnect also have pending states.
+
+Wrong network: if you're connected but not on Amoy, I open RainbowKit's chain modal and also show a "Switch to Amoy" button (wagmi switchChain). If the user rejects the request in the wallet, or there's no wallet, I toast it with sonner which was already in the project.
+
+I first had mainnet in the wagmi chains list so the switcher had another network to pick from. Later I removed it. The brief says the network has to be Polygon Amoy, so I didn't want the app treating Ethereum as a supported chain.
+
+Backend was down, so mock data
+--------------------------------
+The live Render backend was dead when I tried it (no-server). I didn't want the properties page to just sit on an error while I work on wallet connect.
+
+So propertiesAPI.getAll / getById now read from src/data/mockProperties.json. Same response shape as the real endpoints (GET /api/products/list and GET /api/products/single/:id) — success + property array / single property. If the backend comes back, swapping api.ts back to apiClient.get is straightforward.
+
+I didn't do a "try API then fall back" on every page load. The server wasn't responding, and I didn't want a timeout on each refresh. Mock is the source for listings right now.
+
+Filters + prices (this was broken in the original code)
+--------------------------------------------------------
+While checking the properties page I noticed the filters didn't line up with the listing schema, and the prices were a mess.
+
+The sidebar slider is USD ($0 to $2M, $10k steps) but the filter logic was still on the old 0–200 scale, treating each tick as 10 lakhs (so 200 = "20 Cr"). That's why dragging the slider didn't match the cards.
+
+formatPrice was even worse. It prefixed $ but then printed Cr and Lakhs, like "$2.50 Cr" / "$75.0 L". And the card + property header already had a $ next to the formatted string, so you got a double dollar sign.
+
+I changed formatPrice to plain USD: $750,000. Pulled the extra $ out of PropertyCard and PropertyHeader. Filter now compares against the actual price number, not that lakhs conversion. Mock prices were also brought into the $0–$2M range so the slider actually hits them.
+
+Property types / buy-rent already matched the expected schema (apartment, house, villa, office + buy/rent). Kept that.
+
+Also switched the properties grid to Framer Motion AnimatePresence with popLayout so cards don't just snap away when you filter. And a small padding fix on the grid/list toggle in the properties header — the material icons were sitting a bit off in that pill.
+
+Trade offs (short)
+------------------
+- Custom wallet button vs ConnectButton: more code, but it looks like it belongs on this page.
+- Amoy-only config: stricter, matches the brief. Slightly harder to "be on the wrong network" unless you switch in the wallet after connecting.
+- Auto-opening the chain modal: a bit pushy, but the requirement asked to prompt a switch, not just show a warning.
+- Mock listings vs live API: page works without the backend. Listings won't update until someone points api.ts back at the real server.

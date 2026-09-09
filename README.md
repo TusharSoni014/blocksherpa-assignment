@@ -34,53 +34,66 @@ _User-facing React application for the REChain platform._
 | **State Management** | React Context API                |
 | **Routing**          | React Router v7                  |
 | **HTTP Client**      | Axios                            |
+| **Wallet**           | Wagmi + RainbowKit (Polygon Amoy) |
 | **Animations**       | Framer Motion                    |
 | **Icons**            | Lucide React                     |
 
 ---
 
-## Quick Start
+## Setup and run
 
-<details>
-<summary><strong>1. Installation & Setup</strong></summary>
+Run everything from the **repo root** (there is no `frontend/` folder in this repo).
+
+### 1. Install
 
 ```bash
-cd frontend
 npm install
-cp .env.example .env.local
 ```
 
-Edit the `.env.local` file to include your connection parameters.
+### 2. Env file
 
-</details>
+Copy the example file:
 
-<details>
-<summary><strong>2. Configure Environment Variables</strong></summary>
+```bash
+cp .env.example .env
+```
 
-Create or edit `frontend/.env.local`:
+On Windows PowerShell:
+
+```powershell
+copy .env.example .env
+```
+
+Then fill in `.env`:
 
 ```env
-# Required — points to your backend API
 VITE_API_BASE_URL=http://localhost:4000
-
-# Optional — set to "true" to enable AI Property Hub locally
 VITE_ENABLE_AI_HUB=true
+VITE_WALLETCONNECT_PROJECT_ID=
 ```
 
-> **Note:** Do not set `VITE_ENABLE_AI_HUB` on Vercel. Leaving it unset disables the aggressive AI Hub fetching on the live site (saving API credits) and presents a localized "run locally" modal instead.
+- `VITE_WALLETCONNECT_PROJECT_ID` — grab a free one from [cloud.reown.com](https://cloud.reown.com). RainbowKit needs this for WalletConnect / QR. **MetaMask still works if you leave it empty.**
+- `VITE_API_BASE_URL` — only needed if you have the backend running. If the API is down, property list + detail fall back to local mock data (`src/data/mockProperties.json`), so you can still browse listings and test the wallet button.
 
-</details>
-
-<details>
-<summary><strong>3. Run the Development Server</strong></summary>
+### 3. Start the app
 
 ```bash
 npm run dev
 ```
 
-Frontend runs at **http://localhost:5173**
+App runs at **http://localhost:5173**
 
-</details>
+### 4. Where to test the wallet
+
+1. Open **Properties** (`/properties`)
+2. Click any listing
+3. On the property detail page, **Connect Wallet** is under the listed price
+
+Use MetaMask (or another injected wallet). Target network is **Polygon Amoy**. If you are on a different chain, the UI will ask you to switch.
+
+Need a WalletConnect Project ID only if you want the QR / mobile wallet flow.
+
+How I approached the wallet work (and the listing/filter fixes) is in `APPROACH.txt`.
 
 ---
 
@@ -90,7 +103,7 @@ Frontend runs at **http://localhost:5173**
 | --------------- | ------------------ | -------------------------------------------------------- |
 | Home            | `/`                | Hero section, featured properties, about snippets        |
 | Properties      | `/properties`      | Browse catalog with robust interactive filters           |
-| Property Detail | `/properties/:id`  | Full multimedia details and booking capabilities         |
+| Property Detail | `/property/:id`    | Full details + Connect Wallet under the listed price     |
 | AI Property Hub | `/ai-hub`          | Natural language GPT-4.1 search (local environment only) |
 | About           | `/about`           | Team overview and company information                    |
 | Contact         | `/contact`         | User contact form submission                             |
