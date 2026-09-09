@@ -63,28 +63,28 @@ const PropertiesHeader: React.FC<PropertiesHeaderProps> = ({
             </div>
 
             {/* View Toggle */}
-            <div className="flex items-center gap-1 bg-[#F8F6F6] rounded-lg p-1">
+            <div className="inline-flex items-center bg-[#F8F6F6] rounded-lg p-1">
               <button
                 onClick={() => handleViewChange('grid')}
-                className={`p-2 rounded transition-all ${
+                className={`inline-flex size-8 items-center justify-center rounded transition-all ${
                   viewMode === 'grid'
                     ? 'bg-white text-[#D4755B] shadow-sm'
                     : 'text-[#6B7280] hover:text-[#D4755B]'
                 }`}
                 title="Grid View"
               >
-                <span className="material-icons text-xl">grid_view</span>
+                <span className="material-icons block text-[20px] leading-none">grid_view</span>
               </button>
               <button
                 onClick={() => handleViewChange('list')}
-                className={`p-2 rounded transition-all ${
+                className={`inline-flex size-8 items-center justify-center rounded transition-all ${
                   viewMode === 'list'
                     ? 'bg-white text-[#D4755B] shadow-sm'
                     : 'text-[#6B7280] hover:text-[#D4755B]'
                 }`}
                 title="List View"
               >
-                <span className="material-icons text-xl">view_list</span>
+                <span className="material-icons block text-[20px] leading-none">view_list</span>
               </button>
             </div>
           </div>
