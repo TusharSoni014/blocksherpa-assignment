@@ -180,7 +180,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ onFilterChange }) => {
                Price Range (USD)
             </h3>
             <span className="font-space-mono text-sm text-[#D4755B]">
-              ${formatPriceLabel(priceRange[0])} -{" "}
+              {formatPriceLabel(priceRange[0])} -{" "}
               {formatPriceLabel(priceRange[1])}
             </span>
           </div>

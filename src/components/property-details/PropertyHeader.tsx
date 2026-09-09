@@ -85,9 +85,6 @@ const PropertyHeader: React.FC<PropertyHeaderProps> = ({
               Listed Price
             </p>
             <div className="flex items-baseline gap-1">
-              <span className="font-space-mono font-bold text-xl text-[#D4755B]">
-                $
-              </span>
               <span className="font-space-mono font-bold text-4xl text-[#D4755B]">
                 {price}
               </span>

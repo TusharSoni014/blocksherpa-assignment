@@ -76,9 +76,6 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
       <div className="p-5">
         {/* Price */}
         <div className="flex items-baseline gap-1 mb-2">
-          <span className="font-space-mono font-bold text-xl text-[#D4755B]">
-            $
-          </span>
           <span className="font-space-mono font-bold text-2xl text-[#D4755B]">
             {price}
           </span>
