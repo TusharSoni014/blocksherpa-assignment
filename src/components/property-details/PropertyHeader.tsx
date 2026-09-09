@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
+import ConnectWalletButton from "./ConnectWalletButton";
 
 interface PropertyHeaderProps {
-  status?: 'available' | 'sold' | 'pending';
+  status?: "available" | "sold" | "pending";
   refNumber?: string;
   name?: string;
   location?: string;
@@ -12,34 +13,34 @@ interface PropertyHeaderProps {
 }
 
 const PropertyHeader: React.FC<PropertyHeaderProps> = ({
-  status = 'available',
-  refNumber = '#AHM-SKT-402',
-  name = 'Skyline Towers: 4T Apartment in Ahmedabad',
-  location = 'Satellite, Gandhingar Highway, Ahmedabad',
-  price = '75,00,000',
+  status = "available",
+  refNumber = "#AHM-SKT-402",
+  name = "Skyline Towers: 4T Apartment in Ahmedabad",
+  location = "Satellite, Gandhingar Highway, Ahmedabad",
+  price = "75,00,000",
   beds = 4,
   baths = 4,
-  sqm = 1200
+  sqm = 1200,
 }) => {
   const statusConfig = {
     available: {
-      bg: 'bg-[#E0E8E3]',
-      dotColor: 'bg-[#22C55E]',
-      textColor: 'text-[#4A6356]',
-      label: 'Available'
+      bg: "bg-[#E0E8E3]",
+      dotColor: "bg-[#22C55E]",
+      textColor: "text-[#4A6356]",
+      label: "Available",
     },
     sold: {
-      bg: 'bg-[#FEE2E2]',
-      dotColor: 'bg-[#EF4444]',
-      textColor: 'text-[#991B1B]',
-      label: 'Sold'
+      bg: "bg-[#FEE2E2]",
+      dotColor: "bg-[#EF4444]",
+      textColor: "text-[#991B1B]",
+      label: "Sold",
     },
     pending: {
-      bg: 'bg-[#FEF3C7]',
-      dotColor: 'bg-[#F59E0B]',
-      textColor: 'text-[#92400E]',
-      label: 'Pending'
-    }
+      bg: "bg-[#FEF3C7]",
+      dotColor: "bg-[#F59E0B]",
+      textColor: "text-[#92400E]",
+      label: "Pending",
+    },
   };
 
   const currentStatus = statusConfig[status];
@@ -52,9 +53,15 @@ const PropertyHeader: React.FC<PropertyHeaderProps> = ({
           <div className="flex-1">
             {/* Status Badge & Ref Number */}
             <div className="flex items-center gap-4 mb-6">
-              <div className={`${currentStatus.bg} rounded-full px-4 py-1 flex items-center gap-2`}>
-                <div className={`${currentStatus.dotColor} w-2 h-2 rounded-full`} />
-                <span className={`font-manrope font-extralight text-xs ${currentStatus.textColor} uppercase tracking-wider`}>
+              <div
+                className={`${currentStatus.bg} rounded-full px-4 py-1 flex items-center gap-2`}
+              >
+                <div
+                  className={`${currentStatus.dotColor} w-2 h-2 rounded-full`}
+                />
+                <span
+                  className={`font-manrope font-extralight text-xs ${currentStatus.textColor} uppercase tracking-wider`}
+                >
                   {currentStatus.label}
                 </span>
               </div>
@@ -70,9 +77,7 @@ const PropertyHeader: React.FC<PropertyHeaderProps> = ({
 
             {/* Location */}
             <div className="flex items-center gap-2 text-[#64748B]">
-              <span className="material-icons text-lg">
-                location_on
-              </span>
+              <span className="material-icons text-lg">location_on</span>
               <span className="font-manrope font-extralight text-sm">
                 {location}
               </span>
@@ -84,11 +89,12 @@ const PropertyHeader: React.FC<PropertyHeaderProps> = ({
             <p className="font-manrope font-extralight text-sm text-[#64748B] mb-2 uppercase tracking-wider">
               Listed Price
             </p>
-            <div className="flex items-baseline gap-1">
+            <div className="flex items-baseline justify-end gap-1 mb-5">
               <span className="font-space-mono font-bold text-4xl text-[#D4755B]">
                 {price}
               </span>
             </div>
+            <ConnectWalletButton />
           </div>
         </div>
 
