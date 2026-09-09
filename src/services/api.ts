@@ -71,19 +71,31 @@ export const userAPI = {
 };
 
 // Properties (CRUD — admin-managed listings)
-// Live Render backend is down (x-render-routing: no-server). Listings use local mock data
-// that matches GET /api/products/list and GET /api/products/single/:id.
+// Hits the real API first. If it fails (timeout / Render down / etc.) we fall back
+// to local mock data that matches GET /api/products/list and GET /api/products/single/:id.
+const PROPERTIES_TIMEOUT_MS = 8000;
+
 export const propertiesAPI = {
-  getAll: async () => ({
-    data: mockPropertiesResponse,
-  }),
+  getAll: async () => {
+    try {
+      return await apiClient.get('/products/list', { timeout: PROPERTIES_TIMEOUT_MS });
+    } catch (error) {
+      console.warn('Properties API failed, using local mock data.', error);
+      return { data: mockPropertiesResponse };
+    }
+  },
 
   getById: async (id: string) => {
-    const property = mockPropertiesResponse.property.find((item) => item._id === id);
-    if (property) {
-      return { data: { success: true, property } };
+    try {
+      return await apiClient.get(`/products/single/${id}`, { timeout: PROPERTIES_TIMEOUT_MS });
+    } catch (error) {
+      console.warn('Property detail API failed, using local mock data.', error);
+      const property = mockPropertiesResponse.property.find((item) => item._id === id);
+      if (property) {
+        return { data: { success: true, property } };
+      }
+      return { data: { success: false, property: null } };
     }
-    return { data: { success: false, property: null } };
   },
 };
 

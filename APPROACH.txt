@@ -31,13 +31,13 @@ Wrong network: if you're connected but not on Amoy, I open RainbowKit's chain mo
 
 I first had mainnet in the wagmi chains list so the switcher had another network to pick from. Later I removed it. The brief says the network has to be Polygon Amoy, so I didn't want the app treating Ethereum as a supported chain.
 
-Backend was down, so mock data
+Backend fallback (mock JSON)
 --------------------------------
 The live Render backend was dead when I tried it (no-server). I didn't want the properties page to just sit on an error while I work on wallet connect.
 
-So propertiesAPI.getAll / getById now read from src/data/mockProperties.json. Same response shape as the real endpoints (GET /api/products/list and GET /api/products/single/:id) — success + property array / single property. If the backend comes back, swapping api.ts back to apiClient.get is straightforward.
+propertiesAPI.getAll / getById still hit the real endpoints first (GET /api/products/list and GET /api/products/single/:id). If that request fails or times out, they fall back to src/data/mockProperties.json — same response shape (success + property array / single property). So it's a fallback, not a full replace. If the backend is up, you get live listings. If it isn't, you can still browse and test the wallet button.
 
-I didn't do a "try API then fall back" on every page load. The server wasn't responding, and I didn't want a timeout on each refresh. Mock is the source for listings right now.
+There's an 8s timeout on those two calls so a hanging Render box doesn't leave the page spinning forever.
 
 Filters + prices (this was broken in the original code)
 --------------------------------------------------------
@@ -58,4 +58,4 @@ Trade offs (short)
 - Custom wallet button vs ConnectButton: more code, but it looks like it belongs on this page.
 - Amoy-only config: stricter, matches the brief. Slightly harder to "be on the wrong network" unless you switch in the wallet after connecting.
 - Auto-opening the chain modal: a bit pushy, but the requirement asked to prompt a switch, not just show a warning.
-- Mock listings vs live API: page works without the backend. Listings won't update until someone points api.ts back at the real server.
+- Mock listings vs live API: first request still goes to the backend. Mock only kicks in if that call fails, so a dead API doesn't block the wallet demo.
