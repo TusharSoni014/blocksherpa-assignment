@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { toast } from "sonner";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount, useDisconnect, useSwitchChain } from "wagmi";
 import { targetChain } from "../../config/wagmi";
 
@@ -37,15 +37,21 @@ function getWalletErrorMessage(error: unknown): string {
 }
 
 const ConnectWalletButton: React.FC = () => {
-  const { address, isConnected, isConnecting, isReconnecting, chain, chainId } =
+  const { address, isConnected, isConnecting, isReconnecting, chainId } =
     useAccount();
   const { openConnectModal } = useConnectModal();
+  const { openChainModal } = useChainModal();
   const { disconnect, isPending: isDisconnecting } = useDisconnect();
   const { switchChain, isPending: isSwitching } = useSwitchChain();
 
-  const isBusy =
-    isConnecting || isReconnecting || isDisconnecting || isSwitching;
+  const isBusy = isConnecting || isReconnecting || isDisconnecting || isSwitching;
   const isOnTargetChain = chainId === targetChain.id;
+
+  useEffect(() => {
+    if (isConnected && !isOnTargetChain) {
+      openChainModal?.();
+    }
+  }, [isConnected, isOnTargetChain, openChainModal]);
 
   const handleConnect = () => {
     if (!openConnectModal) {
@@ -77,7 +83,7 @@ const ConnectWalletButton: React.FC = () => {
             description: getWalletErrorMessage(error),
           });
         },
-      }
+      },
     );
   };
 
@@ -101,34 +107,23 @@ const ConnectWalletButton: React.FC = () => {
     );
   }
 
-  if (!isOnTargetChain) {
-    return (
-      <div className="w-full sm:w-auto flex flex-col items-end gap-2">
-        <p className="font-space-mono text-sm text-[#0F172A]">
-          {truncateAddress(address)}
-        </p>
-        <p className="font-manrope text-xs text-[#92400E]">
-          Wrong network{chain?.name ? ` (${chain.name})` : ""}. Switch to
-          Polygon Amoy.
-        </p>
+  return (
+    <div className="w-full sm:w-auto flex flex-col items-end gap-2">
+      <p className="font-space-mono text-sm text-[#0F172A]">
+        {truncateAddress(address)}
+      </p>
+      {isOnTargetChain ? (
+        <p className="font-manrope text-xs text-[#4A6356]">Polygon Amoy</p>
+      ) : (
         <button
           type="button"
           onClick={handleSwitchNetwork}
           disabled={isBusy}
           className={`${primaryButtonClass} w-full sm:w-auto`}
         >
-          {isSwitching ? "Switching..." : "Switch to Polygon Amoy"}
+          {isSwitching ? "Switching..." : "Switch to Amoy"}
         </button>
-      </div>
-    );
-  }
-
-  return (
-    <div className="w-full sm:w-auto flex flex-col items-end gap-2">
-      <p className="font-space-mono text-sm text-[#0F172A]">
-        {truncateAddress(address)}
-      </p>
-      <p className="font-manrope text-xs text-[#4A6356]">Polygon Amoy</p>
+      )}
       <button
         type="button"
         onClick={handleDisconnect}
