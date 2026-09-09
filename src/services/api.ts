@@ -1,4 +1,5 @@
 import axios from 'axios';
+import mockPropertiesResponse from '../data/mockProperties.json';
 
 // API Base URL - uses env variable or falls back to localhost
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
@@ -70,12 +71,20 @@ export const userAPI = {
 };
 
 // Properties (CRUD — admin-managed listings)
+// Live Render backend is down (x-render-routing: no-server). Listings use local mock data
+// that matches GET /api/products/list and GET /api/products/single/:id.
 export const propertiesAPI = {
-  getAll: () =>
-    apiClient.get('/products/list'),
+  getAll: async () => ({
+    data: mockPropertiesResponse,
+  }),
 
-  getById: (id: string) =>
-    apiClient.get(`/products/single/${id}`),
+  getById: async (id: string) => {
+    const property = mockPropertiesResponse.property.find((item) => item._id === id);
+    if (property) {
+      return { data: { success: true, property } };
+    }
+    return { data: { success: false, property: null } };
+  },
 };
 
 // User-submitted property listings (require auth)

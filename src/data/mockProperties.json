@@ -1,0 +1,119 @@
+{
+  "success": true,
+  "property": [
+    {
+      "_id": "64a1b2c3d4e5f678901234ab",
+      "title": "Skyline Villa with Pool Deck",
+      "location": "Bandra West, Mumbai, Maharashtra",
+      "price": 18500000,
+      "image": [
+        "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "beds": 5,
+      "baths": 5,
+      "sqm": 420,
+      "type": "villa",
+      "availability": "buy",
+      "description": "A sunlit hillside villa with floor-to-ceiling glass, a private pool terrace, and Arabian Sea views. Open living spaces flow into a chef's kitchen, while the primary suite opens onto a landscaped courtyard. Ideal for buyers who want resort living without leaving the city.",
+      "amenities": ["Parking", "Swimming Pool", "Garden", "Security", "Gated Community", "Power Backup"],
+      "phone": "+91 98200 11420",
+      "googleMapLink": "https://maps.google.com/?q=Bandra+West+Mumbai"
+    },
+    {
+      "_id": "64a1b2c3d4e5f678901234ac",
+      "title": "Riverfront 3T Apartment",
+      "location": "Satellite, Ahmedabad, Gujarat",
+      "price": 7500000,
+      "image": [
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "beds": 3,
+      "baths": 3,
+      "sqm": 186,
+      "type": "apartment",
+      "availability": "rent",
+      "description": "A bright corner apartment with a wraparound balcony over the Sabarmati. Neutral interiors, a modular kitchen, and two parking slots. The tower has 24/7 security and a clubhouse, making it an easy lock-and-leave rental for professionals.",
+      "amenities": ["Parking", "Gym", "Lift", "Clubhouse", "CCTV Surveillance", "Children Play Area"],
+      "phone": "+91 98765 44321",
+      "googleMapLink": "https://maps.google.com/?q=Satellite+Ahmedabad"
+    },
+    {
+      "_id": "64a1b2c3d4e5f678901234ad",
+      "title": "Garden Courtyard Family House",
+      "location": "Koramangala, Bengaluru, Karnataka",
+      "price": 12800000,
+      "image": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "beds": 4,
+      "baths": 4,
+      "sqm": 310,
+      "type": "house",
+      "availability": "buy",
+      "description": "A contemporary independent house organised around a central courtyard garden. Four bedrooms, a double-height living room, and a study that can convert to a guest suite. Quiet lane, walking distance to cafes and schools.",
+      "amenities": ["Parking", "Garden", "Security", "Power Backup", "Balcony"],
+      "phone": "+91 99001 88210",
+      "googleMapLink": "https://maps.google.com/?q=Koramangala+Bengaluru"
+    },
+    {
+      "_id": "64a1b2c3d4e5f678901234ae",
+      "title": "Downtown Studio Office Loft",
+      "location": "BKC, Mumbai, Maharashtra",
+      "price": 9200000,
+      "image": [
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "beds": 1,
+      "baths": 2,
+      "sqm": 140,
+      "type": "office",
+      "availability": "buy",
+      "description": "A fitted office loft in a Grade-A tower with reception, two meeting rooms, and an open work bay for twelve. Floor-to-ceiling glazing, dedicated parking, and building amenities that support client visits throughout the week.",
+      "amenities": ["Parking", "Lift", "Security", "Power Backup", "CCTV Surveillance", "Gym"],
+      "phone": "+91 98111 70045",
+      "googleMapLink": "https://maps.google.com/?q=Bandra+Kurla+Complex+Mumbai"
+    },
+    {
+      "_id": "64a1b2c3d4e5f678901234af",
+      "title": "Harbour View Penthouse",
+      "location": "Marine Drive, Mumbai, Maharashtra",
+      "price": 32000000,
+      "image": [
+        "https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "beds": 4,
+      "baths": 4,
+      "sqm": 365,
+      "type": "apartment",
+      "availability": "pending",
+      "description": "A full-floor penthouse with a private terrace overlooking the Queen's Necklace. Italian stone floors, a wine room, and a service lift. Currently under offer; viewings continue by appointment while documentation is reviewed.",
+      "amenities": ["Parking", "Swimming Pool", "Gym", "Lift", "Security", "Gated Community", "Clubhouse"],
+      "phone": "+91 99300 22118",
+      "googleMapLink": "https://maps.google.com/?q=Marine+Drive+Mumbai"
+    },
+    {
+      "_id": "64a1b2c3d4e5f678901234b0",
+      "title": "Palm Grove Weekend Villa",
+      "location": "Alibaug, Maharashtra",
+      "price": 21000000,
+      "image": [
+        "https://images.unsplash.com/photo-1600047509807-ba8b3ea7f6e3?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "beds": 6,
+      "baths": 6,
+      "sqm": 510,
+      "type": "villa",
+      "availability": "sold",
+      "description": "A palm-lined weekend villa ten minutes from the beach, with a lap pool, outdoor kitchen, and staff quarters. Sold subject to registration; listed here so buyers can review comparable inventory nearby.",
+      "amenities": ["Parking", "Swimming Pool", "Garden", "Security", "Power Backup", "Gated Community"],
+      "phone": "+91 97654 33009",
+      "googleMapLink": "https://maps.google.com/?q=Alibaug+Maharashtra"
+    }
+  ]
+}
